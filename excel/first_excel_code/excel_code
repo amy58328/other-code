@@ -1,0 +1,47 @@
+Sub test()
+mouth = 1
+
+Dim target(12) As String
+
+target(0) = "a"
+target(1) = "b"
+target(2) = "c"
+target(3) = "d"
+target(4) = "e"
+target(5) = "f"
+target(6) = "g"
+target(7) = "h"
+target(8) = "i"
+target(9) = "j"
+target(10) = "k"
+target(11) = "l"
+
+For i = 0 To 11
+    Cells(i + 2, 4) = target(i)
+    Cells(1, i + 5) = i + 1
+Next
+
+For i = 0 To 11
+    mouth = 1
+    Do While mouth <= 12
+        For j = 1 To Cells(Rows.Count, 1).End(xlUp).Row
+            If Cells(j, 2) = mouth Then
+                If Cells(j, 1) = target(i) Then
+                    
+                    Cells(i + 2, mouth + 4) = "v"
+                End If
+            End If
+        Next
+        mouth = mouth + 1
+    Loop
+
+Next
+
+With Range("A1:p20")
+    .HorizontalAlignment = xlCenter
+End With
+
+
+
+
+End Sub
