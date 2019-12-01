@@ -70,7 +70,7 @@ int main(){
 
 	connect_to_server(server_IP,target_PORT,socket_);
 
-	get_file("get.txt",socket_);
+	get_file("get_1.txt",socket_);
 
 	return 0 ;
 }
