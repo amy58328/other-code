@@ -15,13 +15,15 @@
 void connect_to_server(char *ip,int port,int socketfd)
 {
 	struct sockaddr_in info;
-	
+	//初始化，將struct涵蓋的bits設為0  
 	bzero(&info,sizeof(info));
+	//BSD是AF, POSIX是PF  
+	//sockaddr_in為Ipv4結構  
 
 	info.sin_family = PF_INET;
-
+	//IP address setting
 	info.sin_addr.s_addr = inet_addr(ip);
-
+	//將port(int)轉換成port(network_short_int
 	info.sin_port = htons(port);
 
 	int error = connect(socketfd,(struct sockaddr *)&info,sizeof(info));
@@ -39,12 +41,10 @@ void connect_to_server(char *ip,int port,int socketfd)
 void get_file(char *FILENAME, int socketid)
 {
 	int len = 0;
+	//接收資訊buffer
 	char text[500];
 	printf("Read data from server\n");
-	
-	//read(socketid,&len,1);
-	//read(socketid,text,len);
-	
+
 	recv(socketid,text,sizeof(text),0);	
 
 	FILE *fp = fopen(FILENAME,"w");
@@ -67,9 +67,9 @@ int main(){
 	{
 		printf("build success\n");
 	}
-
+	//socket的連線
 	connect_to_server(server_IP,target_PORT,socket_);
-
+	// 從server載檔案 
 	get_file("get_1.txt",socket_);
 
 	return 0 ;
