@@ -1,0 +1,80 @@
+const int analogInPin = A0; 
+const int analogInPin01 = A1;
+const int analogOutPin[7] = {13,12,11,10,9,8,7} ; 
+const int light = 2 ;
+const int sound = 5 ;
+int tone01;
+ 
+
+int sensorValue = 0; 
+int sensorValue01 = 0;      
+int outputValue = 0;     
+
+ 
+void setup() {
+
+  Serial.begin(9600);
+  for(int i=0;i<7;i++)
+  {
+    pinMode(analogOutPin[i], OUTPUT);
+  }
+
+  pinMode(light,OUTPUT);
+  pinMode(sound,OUTPUT);
+}
+
+void loop() { 
+
+      
+
+  for(int i=0 ; i<7 ; i++)
+  {
+
+    digitalWrite(analogOutPin[i], HIGH); // 設定PIN13腳位為高電位= 0V ，LED 處於發亮狀態!!
+     // 等待500 毫秒 (也就是發亮 0.1 秒)
+
+    sensorValue = analogRead(analogInPin);
+    sensorValue01 = analogRead(analogInPin01);
+
+    outputValue = map(sensorValue01, 0, 1023, 0, 255);
+
+
+    if(sensorValue < 150)
+    {
+        if(analogOutPin[i] == 9)
+        {
+          digitalWrite(light,HIGH);
+          
+          
+          tone01 = 2028;
+
+          for(int j=0;j<500;j++)
+          {
+            digitalWrite(sound,HIGH);
+            delayMicroseconds(tone01 / 2);
+            digitalWrite(sound, LOW);
+            delayMicroseconds(tone01 / 2);
+          }
+          
+
+         
+
+        }
+        else 
+          delay(outputValue);
+    }
+    delay(outputValue);
+     digitalWrite(light,LOW);
+
+    digitalWrite(analogOutPin[i], LOW); // 設定PIN13腳位為低電位= 0V ，LED 處於熄滅狀態!!
+    delay(outputValue); // 等待500 毫秒 (也就是熄滅 0.1 秒)
+
+
+
+  }
+
+
+
+ 
+
+}
