@@ -55,32 +55,27 @@ int main()
 					int time = 0;
 					a = i;
 					b = i+1;
+					c = (a*f(index_f,b)-b*f(index_f,a))/(f(index_f,b)-f(index_f,a));
+				
 					while(1){
 						time ++;
-						c = (a+b)/2;
+						
 
-						if(f(index_f,c) == 0)
+						if(abs(b - a) < epsilon[index_e])
 						{
-							printf("%.12lf , time = %d \n",c,time);
-
-							// printf(", time = %d \n",time);
+							printf("%.12lf , time = %d\n",b,time);
 							break;
 						}
 
-						if(f(index_f,a) * f(index_f,c) < 0)
+						else if(time > 40)
 						{
-							b=c;
-						}
-						else
-						{
-							a=c;
-						}
-
-						if(abs(a-b) < 2*epsilon[index_e])
-						{
-							printf("%.12lf , time = %d \n",c,time);					
 							break;
 						}
+
+						a = b;
+						b = c;
+						c = (a*f(index_f,b)-b*f(index_f,a))/(f(index_f,b)-f(index_f,a));
+						
 					}
 				}
 

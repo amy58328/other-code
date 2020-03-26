@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 double f(int index ,double x)
 {
 	switch(index){
@@ -20,13 +21,12 @@ double f(int index ,double x)
 
 int main()
 {
-	//init
+	// init
 	int l[4] = {-10,-5,-10,0};
 	int r[4] = {2,5,10,10};
-	string fx[4] = {"exp(x) - 3*x*cos(2*x) - 8.3","exp(x*sin(x)) - x*cos(2*x) - 2.8","cos(2*x/pi) - sqrt(2)*sin(3*x*x/pi)","exp(x) + cos(x)-2"};
+	string fx[4] = {"exp(x) - 3*x*cos(2*x) - 8.3","exp(x*sin(x)) - x*cos(2*x) - 2.8","18*cos(2*x/pi) - sqrt(2)*sin(3*x*x/pi)","exp(cos(x)) + cos(x)-2"};
 	double epsilon[2] = {0.00000001,0.0000000001};
 	int index_f,index_e ; 
-	//
 
 	for(int index_f = 0 ; index_f < 4 ; index_f++)
 	{
@@ -35,61 +35,64 @@ int main()
 		printf("f(x) = ");
 		cout << fx[index_f] << endl;
 		printf("range is[%d,%d]\n",l[index_f],r[index_f] );
+
 		for(int index_e = 0 ; index_e <2;index_e++)
 		{
-			
 			printf("epsilon is %.10lf\n",epsilon[index_e] );
 			printf("ans are :\n");
 
-			for(int i=l[index_f] ; i<r[index_f] ; i++)
+			for(int i=l[index_f] ; i <= r[index_f] ; i++)
 			{
-				double a,b,c;
-				if(f(index_f,i) == 0)
+				if(f(index_f,i) == 0 )
 				{
-					printf("%.12lf\n",i);
+					cout << i << endl;
 					continue;
 				}
 
-				if(f(index_f,i)*f(index_f,i+1) < 0)
+				double old_c = 0;
+
+				if(i != r[index_f] && f(index_f,i)*f(index_f,i+1) < 0)
 				{
+					double a = i;
+					double Fa = f(index_f,a);
+					double b = i+1;
+					double Fb = f(index_f,b);
+					double c = (a*f(index_f,b) - b*f(index_f,a))/(f(index_f,b)-f(index_f,a));
 					int time = 0;
-					a = i;
-					b = i+1;
-					while(1){
+					while(1)
+					{
 						time ++;
-						c = (a+b)/2;
-
-						if(f(index_f,c) == 0)
+						double Fc = f(index_f,c);
+						if(Fa * Fc < 0 )
 						{
-							printf("%.12lf , time = %d \n",c,time);
-
-							// printf(", time = %d \n",time);
-							break;
-						}
-
-						if(f(index_f,a) * f(index_f,c) < 0)
-						{
-							b=c;
+							b = c;
+							Fa /= 2;
 						}
 						else
 						{
-							a=c;
+							a = c; 
+							Fb /= 2;
 						}
 
-						if(abs(a-b) < 2*epsilon[index_e])
+						if(abs(old_c - c) < epsilon[index_e])
 						{
-							printf("%.12lf , time = %d \n",c,time);					
+							printf("%.12lf , time = %d \n",c,time);
 							break;
 						}
+
+						
+						old_c = c;
+						c = (a*Fb - b*Fa)/(Fb-Fa);
 					}
 				}
-
+				// printf("f(%d) = %.12lf\n",i,f(i) );
 			}
+
 			printf("\n---------------------\n");
 		}
 			
-		
 	}
 
+	
 	return 0 ;
 }
