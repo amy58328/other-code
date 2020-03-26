@@ -18,6 +18,31 @@ double f(int index ,double x)
 	return 0 ;
 }
 
+double df(int index ,double x)
+{
+	switch(index){
+		case 0:
+			return exp(x) - 3*cos(2*x) + 6*x*sin(2*x);
+		case 1:
+			return (sin(x)+x*cos(x))*exp(x*sin(x))- cos(2*x) + 2*x*sin(2*x);
+		case 2:	
+			return -4*sqrt(2)/pi*cos(2*x*x-pi) - 36/pi*sin(2*x/pi);
+		case 3:
+			return -sin(x)*exp(cos(x)) - sin(x);
+	}
+	return 0 ;
+}
+
+struct node
+{
+	double x;
+	int time;
+};
+
+bool rule(node a,node b)
+{
+	return a.x < b.x;
+}
 int main()
 {
 	//init
@@ -38,48 +63,48 @@ int main()
 		for(int index_e = 0 ; index_e <2;index_e++)
 		{
 			
+			set<double>s;
+			vector<node>t;
 			printf("epsilon is %.10lf\n",epsilon[index_e] );
 			printf("ans are :\n");
 
-			for(int i=l[index_f] ; i<r[index_f] ; i++)
+			for(int i=l[index_f] ; i<=r[index_f] ; i++)
 			{
-				double a,b,c;
-				if(f(index_f,i) == 0)
+				double x = i;
+				int time = 0;
+				while(1)
 				{
-					printf("%.12lf\n",i);
-					continue;
-				}
+					double delta = -(f(index_f,x)/df(index_f,x));
 
-				if(f(index_f,i)*f(index_f,i+1) < 0)
-				{
-					int time = 0;
-					a = i;
-					b = i+1;
-					c = (a*f(index_f,b)-b*f(index_f,a))/(f(index_f,b)-f(index_f,a));
-				
-					while(1){
-						time ++;
+					// printf("f(x) = %.12lf , dx(x) = %.12lf, f(x)/df(x) = %.12lf\n",f(index_f,x),df(index_f,x),f(index_f,x)/df(index_f,x) );
+					x = x + delta;
+					time++;
+					if(abs(delta) < epsilon[index_e])
+					{
 						
-
-						if(abs(b - a) < epsilon[index_e])
+						// printf("%.12lf , time = %d\n",x,time );
+						if(!s.count(x))
 						{
-							printf("%.12lf , time = %d\n",b,time);
-							break;
+							s.insert(x);
+							t.push_back((node){x,time});
 						}
+						break;
+					}
 
-						else if(time > 40)
-						{
-							break;
-						}
-
-						a = b;
-						b = c;
-						c = (a*f(index_f,b)-b*f(index_f,a))/(f(index_f,b)-f(index_f,a));
-						
+					else if(time > 40)
+					{
+						break;
 					}
 				}
-
 			}
+
+
+			sort(t.begin(),t.end(),rule);
+			for(int i=0 ; i<t.size() ; i++)
+			{
+				printf("%.12lf , time = %d\n",t[i].x,t[i].time );
+			}
+
 			printf("\n---------------------\n");
 		}
 			
