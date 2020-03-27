@@ -11,7 +11,7 @@ double f(int index ,double x)
 		case 1:
 			return exp(x*sin(x)) - x*cos(2*x) - 2.8;
 		case 2:	
-			return 18*cos(2*x/pi) - sqrt(2)*sin(3*x*x/pi);
+			return cos(18*x)-exp(x*x)+3.5;
 		case 3:
 			return exp(cos(x)) + cos(x)-2;
 	}
@@ -23,7 +23,7 @@ int main()
 	//init
 	int l[4] = {-10,-5,-10,0};
 	int r[4] = {2,5,10,10};
-	string fx[4] = {"exp(x) - 3*x*cos(2*x) - 8.3","exp(x*sin(x)) - x*cos(2*x) - 2.8","cos(2*x/pi) - sqrt(2)*sin(3*x*x/pi)","exp(x) + cos(x)-2"};
+	string fx[4] = {"exp(x) - 3*x*cos(2*x) - 8.3","exp(x*sin(x)) - x*cos(2*x) - 2.8","cos(18*x)-exp(x*x)+3.5","exp(x) + cos(x)-2"};
 	double epsilon[2] = {0.00000001,0.0000000001};
 	int index_f,index_e ; 
 	//

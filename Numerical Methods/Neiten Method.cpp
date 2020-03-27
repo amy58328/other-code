@@ -11,7 +11,7 @@ double f(int index ,double x)
 		case 1:
 			return exp(x*sin(x)) - x*cos(2*x) - 2.8;
 		case 2:	
-			return 18*cos(2*x/pi) - sqrt(2)*sin(3*x*x/pi);
+			return cos(18*x)-exp(x*x)+3.5;
 		case 3:
 			return exp(cos(x)) + cos(x)-2;
 	}
@@ -26,7 +26,7 @@ double df(int index ,double x)
 		case 1:
 			return (sin(x)+x*cos(x))*exp(x*sin(x))- cos(2*x) + 2*x*sin(2*x);
 		case 2:	
-			return -4*sqrt(2)/pi*cos(2*x*x-pi) - 36/pi*sin(2*x/pi);
+			return -2*x*exp(x*x) - 18*sin(18*x);
 		case 3:
 			return -sin(x)*exp(cos(x)) - sin(x);
 	}
@@ -46,9 +46,9 @@ bool rule(node a,node b)
 int main()
 {
 	//init
-	int l[4] = {-10,-5,-10,0};
-	int r[4] = {2,5,10,10};
-	string fx[4] = {"exp(x) - 3*x*cos(2*x) - 8.3","exp(x*sin(x)) - x*cos(2*x) - 2.8","cos(2*x/pi) - sqrt(2)*sin(3*x*x/pi)","exp(x) + cos(x)-2"};
+	int l[4] = {-10,-5,-100,0};
+	int r[4] = {2,5,100,10};
+	string fx[4] = {"exp(x) - 3*x*cos(2*x) - 8.3","exp(x*sin(x)) - x*cos(2*x) - 2.8","cos(18*x)-exp(x*x)+3.5","exp(x) + cos(x)-2"};
 	double epsilon[2] = {0.00000001,0.0000000001};
 	int index_f,index_e ; 
 	//
@@ -76,13 +76,11 @@ int main()
 				{
 					double delta = -(f(index_f,x)/df(index_f,x));
 
-					// printf("f(x) = %.12lf , dx(x) = %.12lf, f(x)/df(x) = %.12lf\n",f(index_f,x),df(index_f,x),f(index_f,x)/df(index_f,x) );
 					x = x + delta;
 					time++;
 					if(abs(delta) < epsilon[index_e])
 					{
 						
-						// printf("%.12lf , time = %d\n",x,time );
 						if(!s.count(x))
 						{
 							s.insert(x);
@@ -91,7 +89,7 @@ int main()
 						break;
 					}
 
-					else if(time > 40)
+					else if(time > 10000)
 					{
 						break;
 					}
