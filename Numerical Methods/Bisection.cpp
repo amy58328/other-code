@@ -11,9 +11,9 @@ double f(int index ,double x)
 		case 1:
 			return exp(x*sin(x)) - x*cos(2*x) - 2.8;
 		case 2:	
-			return cos(18*x)-exp(x*x)+3.5;
+			return x*x*cos(18*x)-exp(x*x)+3.5;
 		case 3:
-			return exp(cos(x)) + cos(x)-2;
+			return x*exp(cos(x)) + cos(x)-2;
 	}
 	return 0 ;
 }

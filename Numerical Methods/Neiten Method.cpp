@@ -11,9 +11,9 @@ double f(int index ,double x)
 		case 1:
 			return exp(x*sin(x)) - x*cos(2*x) - 2.8;
 		case 2:	
-			return cos(18*x)-exp(x*x)+3.5;
+			return x*x*cos(18*x)-exp(x*x)+3.5;
 		case 3:
-			return exp(cos(x)) + cos(x)-2;
+			return x * exp(cos(x)) + cos(x)-2;
 	}
 	return 0 ;
 }
@@ -26,9 +26,9 @@ double df(int index ,double x)
 		case 1:
 			return (sin(x)+x*cos(x))*exp(x*sin(x))- cos(2*x) + 2*x*sin(2*x);
 		case 2:	
-			return -2*x*exp(x*x) - 18*sin(18*x);
+			return -2*x*exp(x*x) - 18*x*x*sin(18*x) + 2*x*cos(18*x);
 		case 3:
-			return -sin(x)*exp(cos(x)) - sin(x);
+			return -sin(x)*exp(cos(x))*x+exp(cos(x)) - sin(x);
 	}
 	return 0 ;
 }

@@ -12,9 +12,9 @@ double f(int index ,double x)
 		case 1:
 			return log(x*cos(2*x)+2.8)/sin(x) * log(exp(1));
 		case 2:	
-			return cos(18*x)-exp(x*x)+3.5;
+			return sqrt((exp(x*x)-3.5)/cos(18*x));
 		case 3:
-			return exp(cos(x)) + cos(x)-2;
+			return	(-cos(x)+2)/exp(cos(x));
 	}
 	return 0 ;
 }
@@ -29,9 +29,9 @@ int main()
 	int index_f,index_e ; 
 	//
 
-	// for(int index_f = 0 ; index_f < 1 ; index_f++)
+	for(int index_f = 0 ; index_f < 4 ; index_f++)
 	{
-		index_f = 3;
+		// index_f = 2;
 		
 		printf("%d",index_f+1);
 		printf("\n----------------------------------\n");
@@ -75,8 +75,8 @@ int main()
 
 				// printf("~~~~~~~~~~~~~~~~~\n");
 
-				printf("time = %d\n",time);
-				if(flag == 0)
+				// printf("time = %d\n",time);
+				if(flag == 0 && isnormal(old_x))
 				{
 					printf("%.12lf , time = %d\n",old_x,time);
 				}
