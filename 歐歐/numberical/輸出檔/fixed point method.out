@@ -1,0 +1,80 @@
+f(x) = exp(x) - 3*x*cos(2*x) - 8.3
+range of x is [-10,2]
+
+test 1 :
+c = -2
+can't find
+
+test 2 :
+c = -8
+can't find
+
+test 3 :
+c = -7
+can't find
+
+test 4 :
+c = 0
+can't find
+
+test 5 :
+c = -7
+can't find
+
+------------------------------------------
+
+f(x) = exp(x*sin(x)) - x*cos(2*x) - 2.8
+range of x is [-5,5]
+
+test 1 :
+c = 4
+times = 14 => -1.4467958111029775
+
+test 2 :
+c = -1
+times = 13 => -1.4467958111221613
+
+test 3 :
+c = -2
+times = 13 => -1.4467958135731322
+
+test 4 :
+c = -1
+times = 13 => -1.4467958111221613
+
+test 5 :
+c = 4
+times = 14 => -1.4467958111029775
+
+------------------------------------------
+
+f(x) = x*math.cos(2*x) + math.exp(x) - 2.3
+range of x is [-10,1]
+
+can't find
+
+------------------------------------------
+
+f(x) = math.exp(math.cos(x)) + math.cos(x) - 1.1
+range of x is [5,10]
+
+test 1 :
+c = 5
+can't find
+
+test 2 :
+c = 5
+can't find
+
+test 3 :
+c = 5
+can't find
+
+test 4 :
+c = 6
+can't find
+
+test 5 :
+c = 6
+can't find
+
