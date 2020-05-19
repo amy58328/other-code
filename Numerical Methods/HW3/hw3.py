@@ -13,11 +13,10 @@ for i in file.readlines():
 	fx.append(float(b))
 
 def Lagrange():
-		i=0
+		i=2.5
 		node = []
 		xi = []
-		while i <= 10:
-			
+		while i <= 7.5:
 			fi = 0
 			for j in range(0,len(x)):
 				temp = 1;
@@ -34,5 +33,33 @@ def Lagrange():
 		plt.plot(xi,node)
 		plt.show()
 
+def neuton_divided_difference():
+	fi = []
+	fi.append(fx)
+	index = 0
+	time = 1;
+	
+	while len(fi[index]) != 1:
+		temparr = []
+		for i in range(0,len(fi[index])-1):
+			temp = fi[index][i+1] - fi[index][i]
+			temp /= (x[i+time] - x[i])
+			print(temp,end =  " ")
+			temparr.append(temp)
+		time += 1
+		fi.append(temparr)
+		index += 1
+
+		i = 2.5
+		while i <= 7.5:
+			i+=0.001
+
+
+	
+
+
+
+# 老師實驗數據
 # Lagrange
-Lagrange()
+# Lagrange()
+neuton_divided_difference()

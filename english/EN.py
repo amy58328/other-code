@@ -1,51 +1,70 @@
 import random
 
 
-file = open("file.txt","r",encoding='utf-8')
+while True:
+	file = open("file.txt","r",encoding='utf-8')
+
+	lines = file.readlines()
+	elist = []
+	clist = []
+	all = 0
+	for i in lines:
+		# print(i)
+		all += 1
+		a,b,c = i.split(".")
+		elist.append(a)
+		clist.append(b)
+
+	print("the number of questions is ",all,end="")
+	n = input(", enter the number of questions that you want to test :(-1 for break) ")
+	n = int(n)
+
+	if(n == -1):
+		break
+
+	li = [i for i in range(all)]
+
+	# order = random.sample(li,n)
 
 
-all = 89
-n = 20
-li = [i for i in range(all)]
 
-order = random.sample(li,n)
 
-lines = file.readlines()
-elist = []
-clist = []
 
-for i in lines:
-	# print(i)
-	a,b = i.split()
-	elist.append(a)
-	clist.append(b)
+	#  print chinese enter english
+	# order = random.sample(li,n)
 
-order = random.sample(li,n)
+	score = 0
+	index = 1
+	for i in range(0,len(elist)):
+		print(index," : ",clist[i])
+		index+=1
+		message = input()
+		if(message==elist[i]):
+			score+=1
+			continue
+		else:
+			print(elist[i])
+			message = input("再輸入一遍")
+			if(message!=elist[i]):
+				print("還是錯的")
 
-score = 0
-index = 1
-for i in order:
-	print(index," : ",clist[i])
-	index+=1
-	message = input()
-	if(message==elist[i]):
-		score+=1
-		continue
-	else:
-		print(elist[i])
+	print("\n score = ",score,"/",n)		
 
-print("\n score = ",score,"/",n)		
 
-order = random.sample(li,n)
-score = 0
-index = 1
-for i in order:
-	print(index," : ",elist[i]) 
-	message = input()
-	if(message==clist[i]):
-		score+=1
-		continue
-	else:
-		print(clist[i])
+	#  print english enter chinese
 
-print("\n score = ",score,"/",n)
+	# order = random.sample(li,n)
+	score = 0
+	index = 1
+	for i in range(0,len(clist)):
+		print(index," : ",elist[i]) 
+		index += 1
+		message = input()
+		if(message==clist[i]):
+			score+=1
+			continue
+		else:
+			print(clist[i])
+			message = input("再輸入一遍")
+
+	print("\n score = ",score,"/",n)

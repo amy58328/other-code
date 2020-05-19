@@ -10,9 +10,10 @@ expression.措辭.
 notoriously.眾所皆知地.
 assume.採用.
 legion.軍隊.
-fiercely.強烈地.
+fiercely.強烈的.
 coverage.新聞報導.
 element.一群人.
 sensitive.敏感的.
-perceived.感知的.
+perceived.感知的
 slight.藐視.
+
