@@ -173,6 +173,8 @@ def creat_UNEquidistant_data(diff):
 			temp = 3 * i * math.cos(2*i) - 3*i
 		elif(diff == 2) :
 			temp = math.sin(3*i) + 2 -  math.exp(i)
+		elif(diff == 3):
+			temp = math.exp(pow((i-5),2)) - math.sin(3*(i+12))-5
 		fx.append(temp)
 
 def customize_function_create(diff):
@@ -183,6 +185,8 @@ def customize_function_create(diff):
 			temp = 3 * i * math.cos(2*i) - 3*i
 		elif(diff == 2): #sin(3x)+2-exp(x)
 			temp = math.sin(3*i) + 2 -  math.exp(i)
+		elif(diff == 3):
+			temp = math.exp(pow((i-5),2)) - math.sin(3*(i+12))-5
 
 		customize_fx.append(temp)
 		i += 0.0001
@@ -201,6 +205,8 @@ def creat_Equidistant_data(diff):
 			temp = 3 * i * math.cos(2*i) - 3*i
 		elif(diff == 2): #sin(3x)+2-exp(x)
 			temp = math.sin(3*i) + 2 -  math.exp(i)
+		elif(diff == 3):
+			temp = math.exp(pow((i-5),2)) - math.sin(3*(i+12))-5
 		fx.append(temp)
 		x.append(i)
 		i+=0.5
@@ -208,44 +214,65 @@ def creat_Equidistant_data(diff):
 
 
 # 老師實驗數據
-readfile('Equidistant.txt')
-Lagrange()
-neuton_divided_difference()
+# readfile('Equidistant.txt')
+# Lagrange()
+# neuton_divided_difference()
 
-x.clear()
-fx.clear()
+# x.clear()
+# fx.clear()
 
 create_factorial()
-readfile('unEquidistant.txt')
-forward()
-backward()
+# readfile('unEquidistant.txt')
+# forward()
+# backward()
 
 #customize function 
 # 1. 3x*cos(2x)-3x
-customize_function_create(1)
-x.clear()
-fx.clear()
-creat_UNEquidistant_data(1)
-Lagrange()
-compare("Lagrange")
-neuton_divided_difference()
-compare("neuton_divided_difference")
+# customize_function_create(1)
+# x.clear()
+# fx.clear()
+# creat_UNEquidistant_data(1)
+# Lagrange()
+# compare("Lagrange")
+# neuton_divided_difference()
+# compare("neuton_divided_difference")
 
-x.clear()
-fx.clear()
-creat_Equidistant_data(1)
-forward()
-compare("forward")
-backward()
-compare("backward")
+# x.clear()
+# fx.clear()
+# creat_Equidistant_data(1)
+# forward()
+# compare("forward")
+# backward()
+# compare("backward")
 
-# 2. sin(3x)+2-exp(x)
+# # 2. sin(3x)+2-exp(x)
+# customize_fx.clear()
+# customize_x.clear()
+# customize_function_create(2)
+# x.clear()
+# fx.clear()
+# creat_UNEquidistant_data(2)
+# Lagrange()
+# compare("Lagrange")
+# neuton_divided_difference()
+# compare("neuton_divided_difference")
+
+# x.clear()
+# fx.clear()
+# creat_Equidistant_data(2)
+# forward()
+# compare("forward")
+# backward()
+# compare("backward")
+
+
+# 3.exp((x-5)^2)-sin(3(x+12))-5
 customize_fx.clear()
 customize_x.clear()
-customize_function_create(2)
+customize_function_create(3)
 x.clear()
 fx.clear()
-creat_UNEquidistant_data(2)
+creat_UNEquidistant_data(3)
 Lagrange()
 compare("Lagrange")
 neuton_divided_difference()
@@ -253,9 +280,8 @@ compare("neuton_divided_difference")
 
 x.clear()
 fx.clear()
-creat_Equidistant_data(2)
+creat_Equidistant_data(3)
 forward()
 compare("forward")
 backward()
 compare("backward")
-
