@@ -33,7 +33,7 @@ while True:
 	elif(a == '5'):
 		file = open("ch8.txt","r",encoding='utf-8')
 	elif(a == '6'):
-		file = open("sentence.txt","r",encoding='utf-8')
+		file = open("all.txt","r",encoding='utf-8')
 	elif(a == '7'):
 		file = open("wrong.txt","r",encoding='utf-8')
 
@@ -55,18 +55,31 @@ while True:
 		index += 1
 		print(sentence[i][0])
 
-		for j in range(1,len(sentence[i])-1):
-			print(j,":")
-			word = input()
+		for j in range(1,len(sentence[i])-1,2):
+			print(int(j/2+1),end = ":")
+			word = input("英文:  ")
 			total += 1
+			cor = 0
 			if(word == sentence[i][j]):
-
-				score += 1
+				cor += 1
 			else:
-				print(sentence[i][j])
-				word = input("write again:")
-				if(word != sentence[i][j]):
+				print("正確答案是 : ",sentence[i][j])
+				word = input("再輸入一次: ")
+				while(word != sentence[i][j]):
 					print("still wrong")
+					word = input("再輸入一次: ")
 
+			word = input("中文:  ")
+			if(word == sentence[i][j+1]):
+				cor += 1
+			else:
+				print("正確答案是 : ",sentence[i][j+1])
+				word = input("再輸入一次: ")
+				while(word != sentence[i][j+1]):
+					print("still wrong")
+					word = input("再輸入一次: ")
+
+			if(cor == 2):
+				score += 1
 		print()
 	print("scor = %d/%d"%(score,total))

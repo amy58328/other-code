@@ -3,11 +3,19 @@ import math
 import random
 import matplotlib.pyplot as plt
 
+# 實驗數據
 x = []
 fx = []
+
+# 階層
 factorial = []
+
+# 自訂實驗數據
+customize_number = int(input("number of test cases"))
 customize_x = []
 customize_fx = []
+
+# 內差法數據
 node = []
 xi = []
 def create_factorial():
@@ -107,6 +115,31 @@ def cal_backward(number,fi,index):
 		n += temp
 	return n 
 
+def cal_gauss_forward(number,fi,index):
+	start = int(len(fx)/2)-1
+
+	if(len(fx) % 2 == 1):
+		start += 1
+
+	s = (number - x[0])/(x[1] - x[0])		
+
+	n = fi[0][start]
+
+	for i in range(1,index+1):
+		if (i % 2 == 0):
+			start -= 1
+
+		temp = fi[i][start]
+		s_ = s + int((i-1)/2)
+
+		for j in range(0,i):
+			temp *= (s_ - j)
+
+		temp /= factorial[i]
+
+		n += temp
+	return n 
+
 def forward():
 	fi = []
 	fi.append(fx)
@@ -165,7 +198,7 @@ def backward():
 	plt.show()
 
 def creat_UNEquidistant_data(diff):
-	for i in range(0,30):
+	for i in range(0,customize_number):
 		x.append(random.uniform(0,10))
 	
 	for i in x:
@@ -173,9 +206,22 @@ def creat_UNEquidistant_data(diff):
 			temp = 3 * i * math.cos(2*i) - 3*i
 		elif(diff == 2) :
 			temp = math.sin(3*i) + 2 -  math.exp(i)
-		elif(diff == 3):
-			temp = math.exp(pow((i-5),2)) - math.sin(3*(i+12))-5
+		elif(diff == 3): # x^{3}-\sin\left(x-20\right)+2
+			temp = math.pow(i,3) - math.sin(i) + 2 
 		fx.append(temp)
+
+def creat_Equidistant_data(diff):
+	i = 0
+	while i <= 10:
+		if(diff == 1):
+			temp = 3 * i * math.cos(2*i) - 3*i
+		elif(diff == 2): #sin(3x)+2-exp(x)
+			temp = math.sin(3*i) + 2 -  math.exp(i)
+		elif(diff == 3): # x^{3}-\sin\left(x-20\right)+2
+			temp = math.pow(i,3) - math.sin(i) + 2 
+		fx.append(temp)
+		x.append(i)
+		i+= 10/customize_number
 
 def customize_function_create(diff):
 	i = 0
@@ -185,11 +231,14 @@ def customize_function_create(diff):
 			temp = 3 * i * math.cos(2*i) - 3*i
 		elif(diff == 2): #sin(3x)+2-exp(x)
 			temp = math.sin(3*i) + 2 -  math.exp(i)
-		elif(diff == 3):
-			temp = math.exp(pow((i-5),2)) - math.sin(3*(i+12))-5
+		elif(diff == 3): # x^{3}-\sin\left(x-20\right)+2
+			temp = math.pow(i,3) - math.sin(i) + 2 
 
 		customize_fx.append(temp)
 		i += 0.0001
+	plt.title("customize_function_create")
+	plt.plot(customize_x,customize_fx)
+	plt.show()
 
 def compare(name):
 	plt.title("compare")
@@ -198,23 +247,40 @@ def compare(name):
 	plt.legend(loc='upper right')
 	plt.show()
 
-def creat_Equidistant_data(diff):
-	i = 0
-	while i <= 10:
-		if(diff == 1):
-			temp = 3 * i * math.cos(2*i) - 3*i
-		elif(diff == 2): #sin(3x)+2-exp(x)
-			temp = math.sin(3*i) + 2 -  math.exp(i)
-		elif(diff == 3):
-			temp = math.exp(pow((i-5),2)) - math.sin(3*(i+12))-5
-		fx.append(temp)
-		x.append(i)
-		i+=0.5
+def gauss_forward():
+	fi = []
+	fi.append(fx)
+	index = 0
+	time = 1;
+	
+	# build table
+	while len(fi[index]) != 1:
+		temparr = []
+		for i in range(0,len(fi[index])-1):
+			temp = fi[index][i+1] - fi[index][i]
+			temparr.append(temp)
+		time += 1
+		fi.append(temparr)
+		index += 1
+
+	# print(fi)
+	node.clear()
+	xi.clear()
+
+	i = 2.5
+	while i <= 2.5:
+		temp = cal_gauss_forward(i,fi,index)
+		node.append(temp)
+		xi.append(i)
+		i += 0.001
+	plt.title("gauss forward")
+	plt.plot(xi,node)
+	plt.show()
 
 
 
 # 老師實驗數據
-# readfile('Equidistant.txt')
+# readfile('unEquidistant.txt')
 # Lagrange()
 # neuton_divided_difference()
 
@@ -222,9 +288,12 @@ def creat_Equidistant_data(diff):
 # fx.clear()
 
 create_factorial()
-# readfile('unEquidistant.txt')
+# readfile('Equidistant.txt')
 # forward()
 # backward()
+# gauss_forward()
+# gauss_backward()
+
 
 #customize function 
 # 1. 3x*cos(2x)-3x
@@ -244,6 +313,8 @@ create_factorial()
 # compare("forward")
 # backward()
 # compare("backward")
+# gauss_forward()
+# compare("gauss_forward")
 
 # # 2. sin(3x)+2-exp(x)
 # customize_fx.clear()
@@ -264,7 +335,6 @@ create_factorial()
 # compare("forward")
 # backward()
 # compare("backward")
-
 
 # 3.exp((x-5)^2)-sin(3(x+12))-5
 customize_fx.clear()
